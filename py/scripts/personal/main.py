@@ -18,10 +18,12 @@ u = upload()
 urls = []
 p_emoji = a.emojiz()
 for y in x.o:
+    y[0] = str(y[0]).replace('/', '')
+
     # s.split(p, y[0], y[1], y[2])
     s = spitz()
     w = s.split(p, y[0], y[1], y[2])
-    y[0] = a.emojiz() + "  " + y[0]
+    y[0] = a.emojiz() + "  " + str(y[0])
     q = u.upload_blob(
         bucket_name='books-study',
         source_file_name=w,
@@ -32,4 +34,4 @@ for y in x.o:
 
 for i in urls:
     wb.open_new_tab(i)
-    print(p_emoji + "\n" + i + "\n")
+    print(i + "\n")

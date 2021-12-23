@@ -51,7 +51,7 @@ class bm():
                     bm.space -= 2
     
 
-    def chapters(self, chapters, level=1):
+    def chapters(self, chapters, level=0):
         x = []
         out = []
         # for i in chapters:
