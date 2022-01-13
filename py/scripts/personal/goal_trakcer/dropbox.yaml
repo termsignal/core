@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: dropbox
+  name: dropbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dropbox
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dropbox
+    spec:
+      volumes:
+        - name: dp-local
+          gcePersistentDisk:
+            pdName: dropbox-disks
+            fsType: ext4
+      containers:
+      - image: gcr.io/chilos-terminal/persona_automation
+        name: dropbox
+        # command:
+        #   - "~/.dropbox-dist/dropboxd"
+        volumeMounts:
+          - mountPath: "/dbox/Dropbox"
+            name: dp-local   
+          - mountPath: "/dbox/.dropbox"
+            name: dp-local   
+        env:
+          - name: DBOX_UID
+            value: "1000"
+          - name: DBOX_GID
+            value: "1000"
+        resources: {}
+status: {}

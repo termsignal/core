@@ -1,0 +1,1 @@
+gcloud compute disks create --size=20GB --zone=us-central1-b dropbox-disks

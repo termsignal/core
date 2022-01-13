@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: dropbox
+  name: dropbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dropbox
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dropbox
+    spec:
+      containers:
+      - image: ubuntu
+        name: ubuntu
+        resources: {}
+status: {}
