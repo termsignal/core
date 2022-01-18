@@ -1,0 +1,101 @@
+swagger: "2.0"
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Simple Inventory API
+  # put the contact info for your development or API team
+  contact:
+    email: you@your-company.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+
+paths:
+  /activity:
+    get:
+      tags:
+        - developers
+      summary: searches activity
+      operationId: searchActivity
+      description: |
+        By passing in the appropriate options, you can search for
+        available activity in the system
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          description: pass an optional search string for looking up activity
+          required: false
+          type: string
+      x-google-backend: 
+        address: https://us-central1-chilos-terminal.cloudfunctions.net/activity_api/
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: string
+        400:
+          description: bad input parameter
+    post:
+      tags:
+        - admins
+      summary: adds an activity
+      operationId: addActivity
+      description: Adds an activity to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: ActivityItem
+          description: Activity item to add
+          schema:
+            $ref: "#/definitions/ActivityItem"
+      x-google-backend: 
+        address: https://us-central1-chilos-terminal.cloudfunctions.net/create_activity 
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+definitions:
+  ActivityItem:
+    type: object
+    required:
+      - id
+      - body
+      - date
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      body:
+        type: object
+        example: { data: "eyy_base64_payload" }
+      date:
+        type: string
+        format: date-time
+        example: "2016-08-29T09:12:33.001Z"
+      notes:
+        type: string
+        example: "Good day"
+# host: us-central1-chilos-terminal.cloudfunctions.net
+# basePath: /activity_api/
+host: virtserver.swaggerhub.com
+basePath: /termsignal/termsignal/1.0.0
+schemes:
+  - https
+# # Added by API Auto Mocking Plugin
