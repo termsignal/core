@@ -37,9 +37,86 @@ How do we calculate the amount of servers we need?
 
 `(Number of Playback Requests per Sec * Latency) / Number of Concurrent Connections per Server`
 
+* Latency 20ms
+* Max Connections 10k
+* Scale to 75% of DAU Requesting Playback
+
+`150 Total Servers = (75M*20ms/10K)`
+
+Number of Videos watched per second = (Num of Active Users * Number of Average Videos Watched Daily) / 86400 Sec
+
+* `(100 Million * 3 / 86400) = VWPS 3472`
+
+Size of the content stored on a daily basis = ( average size of video uploaded per min * Num of pairwise combination of resolutions and codecs * 24 * 60 = 36TB/day)
+
+* `2500MB * 10 * 24 * 60 = 36,000,000MB`
+* `36,000,000 / 1024 = 36,000GB`
+* `36,000 / 1024 = 36TB`
+* `36TB` a day of Uploaded videos
+
 ## High Level Design
 
+We have two user types
+
+1. Content Creators
+2. Viewers
+
+* Content Distributor Network
+* Control Plane
+  * CDN Health Checker
+  * Content Uploader Service
+* Data Storage
+* Data Plane
+  * Playback Service
+  * Steering Service
+
+Diagram
+
+Steps
+
 ## API Design
+
+#### Video Upload
+
+Path:
+
+POST /video-contents/v1/videos
+
+Body:
+
+```
+{
+	videoTitle : Title of the video
+	videoDescription : Description of the video
+	tags : Tags associated with the video
+	category : Category of the video, e.g. Movie, TV Show, 
+	videoContent: Stream of video content to be uploaded
+}
+```
+
+#### Search Video
+
+Path:
+
+GET /video-contents/v1/{$search-query}
+
+Query Parameter:
+
+`{ user-location: location of the user performing search } `
+
+#### Stream Video
+
+Path:
+
+GET /video-contents/v1/videos/
+
+Query Parameter:
+
+```
+{
+	offset: Time in seconds from the beginning of the video
+}
+```
 
 ## Data Model
 
