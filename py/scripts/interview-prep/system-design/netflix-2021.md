@@ -56,9 +56,6 @@ Size of the content stored on a daily basis = ( average size of video uploaded p
 
 ## High Level Design
 
-
-![](assets/20220129_000952_netflix-2021-diagrams.png)
-
 We have two user types
 
 1. Content Creators
@@ -74,8 +71,20 @@ We have two user types
   * Steering Service
 
 Diagram
+![](assets/20220129_000952_netflix-2021-diagrams.png)
 
-Steps
+
+Steps 
+
+1. The content creators upload the video content to the control plane.
+2. The video content gets uploaded on the CDN which are placed geographically closer to end users.
+3. The CDN reports the status to the control plane such as health metrics, what files they have stored, the optimal BGP routes and so forth.
+4. The video metadata and the related CDN information gets persisted in the data storage.
+5. A user on the client device places the request to play a particular title (TV show or movie).
+6. Playback service determines the files which are required to playback a specific title.
+7. The Steering service picks the optimal CDNs from which the required files can be fetched from. It generates the urls of such CDNs and provide it to back to the client device.
+8. Client device requests the CDNs to serve the requested files.
+9. CDN serves the requested files to the client device which gets rendered to the users.
 
 ## API Design
 
