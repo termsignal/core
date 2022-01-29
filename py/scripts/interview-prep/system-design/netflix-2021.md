@@ -33,9 +33,9 @@ The `Playback Microservice` is responsible for playback requests and requires ma
 
 How do we calculate the amount of servers we need?
 
-`Total Servers = (`
+`Total Servers = `
 
-`Number of Playback Requests per Sec * Latency) / Number of Concurrent Connections per Server`
+`(Number of Playback Requests per Sec * Latency) / Number of Concurrent Connections per Server`
 
 ## High Level Design
 
