@@ -141,8 +141,7 @@ Query Parameter:
 #### Content Uploader
 
 This module will execute when the creators upload content. Its responsible for distributing content to CDN
-
-![](assets/20220129_114220_Controle_Plane - Content Uploader (1).png)
+![img](assets/20220129_114220.png)
 
 #### Control Plane
 
