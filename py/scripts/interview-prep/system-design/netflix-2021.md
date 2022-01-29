@@ -20,6 +20,21 @@ Design a video streaming platform similar to Netflix. Content creators can uploa
 
 ## Capacity Planning
 
+* What are the number of active daily users? DAU
+  * 100 Million
+* What is the average size of videos being uploaded per minute?
+  * 2500 MB
+* What is the total combinations of resolutions and codec formats which need to be supported?
+  * 10
+* What is the Average Number of Video users watch a day?
+  * 3
+
+The `Playback Microservice` is responsible for playback requests and requires many servers.
+
+How do we calculate the amount of servers we need?
+
+`Total Servers = (Number of Playback Requests per Sec * Latency) / Number of Concurrent Connections per Server`
+
 ## High Level Design
 
 ## API Design
