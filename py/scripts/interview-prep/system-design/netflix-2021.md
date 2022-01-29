@@ -61,20 +61,24 @@ We have two user types
 1. Content Creators
 2. Viewers
 
-* Content Distributor Network
-* Control Plane
-  * CDN Health Checker
-  * Content Uploader Service
-* Data Storage
-* Data Plane
+* Content Distributor Network: Stores content in the locations which are geographically closts to users.
+  * Open Connect is the global cusom CDN for netflix
+* Control Plane: Component that handles uploads from content creators that will eventually hit CDNs
+  * CDN Health Checker Service: This will check the health of the CDN periodically based on playback experience
+  * Content Uploader Service: This will consume the content from creators and distribute it to CDNS to ensure robust playback experience. Also, stores metadata of video content.
+* Data Storage: Video metadata is saved in the data storage. Including subtitle information in the optimal db
+* Data Plane: Component that will interact with endusers for playback. Different platforms and returns urls of CDNs with the files requested
   * Playback Service
+    * The service will determine the files that are required for playback
+    * Get all URLS
   * Steering Service
+    * This service determines the optimal CDN urls from which requested playback can be fetched from
+    * Select best URLS
 
 Diagram
 ![](assets/20220129_000952_netflix-2021-diagrams.png)
 
-
-Steps 
+Steps
 
 1. The content creators upload the video content to the control plane.
 2. The video content gets uploaded on the CDN which are placed geographically closer to end users.
@@ -130,21 +134,21 @@ Query Parameter:
 }
 ```
 
-## Data Model
+### Data Model
 
 ### Component Design
 
-### Content Uploader
+#### Content Uploader
 
-### Control Plane
+#### Control Plane
 
-### Video Encoder
+#### Video Encoder
 
-### CDN Health Checker
+#### CDN Health Checker
 
-### Title Indexer
+#### Title Indexer
 
-### Data Plane
+#### Data Plane
 
 #### Playback Workflow
 
