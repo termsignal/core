@@ -56,6 +56,9 @@ Size of the content stored on a daily basis = ( average size of video uploaded p
 
 ## High Level Design
 
+
+![](assets/20220129_000952_netflix-2021-diagrams.png)
+
 We have two user types
 
 1. Content Creators
