@@ -44,3 +44,40 @@ Content-Disposition: inline
 User-Agent: Mutt/1.5.20 (2009-06-14)
 Test Body
 ```
+
+
+
+## Problems
+
+### Client Can’t Communicate with the Outbound Mail Server
+
+* Check Network
+* Check DNS
+* Check Ports
+* Send Manual Email with Telnet
+  * The telnet output has Email Error Codes for more information
+  * Outbound Mail Server Won’t Allow Relay- this is an old method
+  * Use your user and pw to log in to the relay
+
+
+### Outbound Mail Server Can’t Communicate with the Destination
+
+* Check the mail server outbound log
+  * `/var/log/mail.log or /var/log/ maillog`
+  * Use queueID + CTRL + F
+  * `grep 12BDBE6FEE9 /var/log/mail.log`
+* Check if you can communicate to the destination server
+  * `dig gmail.com MX +short`
+* Check the port
+  * `nmap -p 25 gmail-smtp-in.l.google.com`
+  * you might need to block ping probes
+    * `nmap -p 25 -PN gmail-smtp-in.l.google.com`
+* Run`mailq` to see the current status of the mail queue
+
+
+### Other Troubleshooting Commands
+
+* `sudo egrep 'to=.*jan@example.net' /var/log/mail.log > /tmp/jans_incoming_emails`
+* `sudo grep 62337254A2 /var/log/mail.log`
+* Check to see if the service is up`sudo /etc/init.d/postfix status`
+* Check processees`ps -ef | grep postfix`
