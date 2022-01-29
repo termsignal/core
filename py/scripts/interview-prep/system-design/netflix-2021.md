@@ -136,12 +136,44 @@ Query Parameter:
 
 ### Data Model
 
+We need to store video metadata and its subtitles to the database. The metadata can be stored in an aggregate oriented database and given that the metadata will update frequently we can use MongoDB NoSQL
+
+| VideoID         |
+| :-------------- |
+| title           |
+| description     |
+| cdn_urls        |
+| content_creator |
+| cast_members    |
+
+We can also use a time-series database such as OpenTSDB which builds on top of cassandra to store subtitles. The data-model below shows how subtitles can be stored.
+
+
+![](assets/20220129_115939_datamodel_subs.jpeg)
+
+**FUN FACT** : In this [talk](https://www.youtube.com/watch?v=OQK3E21BEn8), Rohit Puri from Netflix, talks about the Netflix Media Database([NMDB](https://netflixtechblog.com/netflix-mediadatabase-media-timeline-data-model-4e657e6ffe93)) which is modeled around the notion of a media timeline with spatial properties. NMDB is desired to be a highly-scalable, multi-tenant, media metadata system which can serve near real-time queries and can serve high read/write throughput. The structure of the media timeline data model is called a “**Media Document** ”
+
 ### Component Design
+
+### Control Plane
+
+This component will mainly comprise of three modules: Content Uploader, CDN Health Checker, and Title Indexer. Each of these modules will be a micro-service performing a specific task. We have covered details of each of these modules in the section below.
 
 #### Content Uploader
 
 This module will execute when the creators upload content. Its responsible for distributing content to CDN
 ![img](assets/20220129_114220.png)
+
+
+The diagram above depicts the sequence of operations which gets executed when content creators upload the video content (TV Show or movie).
+
+1. The content creator uploads the raw video content which can be TV Show or movie.
+2. The Content_Storage_Service segments the raw video file into chunks and persists those segments on the file storage system.
+3. The Video_Encoder encodes each of the segments in different codec and resolution.
+4. The encoded file segments are stored in the file storage.
+5. The Video_Distributor reads the encoded file segments from the distributed file storage system.
+6. The Video_Distributor distributes the encoded file segments in CDN.
+7. The Video_Distributor persists the CDN url links of the videos in the data_storage.
 
 #### Control Plane
 
