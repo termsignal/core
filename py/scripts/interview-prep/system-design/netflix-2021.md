@@ -296,4 +296,4 @@ A common issue observed while streaming a video is that the subtitle appears on 
 We can extend the existing Media Document solution (used for video subtitles) to store the video media information as well. We can then run Text-in-video detection and subtitle positioning algorithms on the media document data store and persist the results as separate indexes. After that, these indexes will be queried by the Text-on-Text detection application to identify any overlap, which will detect the text-on-text issue.
 
 
-![](assets/20220129_163956_51741195872_7e64356c26_z.jpeg)
+![](https://live.staticflickr.com/65535/51741195872_7e64356c26_z.jpg)
