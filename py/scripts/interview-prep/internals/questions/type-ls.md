@@ -51,6 +51,7 @@ After the command has been split into tokens or words expanded or resolved.
 There are 8 expansions.
 
 #### Brace Expansion
+
 A mechanism by which arbitrary strings may be generated. Oatterns to be brace expanded take the form of an optional PREAMBLE, followed by a serires of comma-seperated strings between a pair of braces, followed by an optional POSTSCRIPT. The preable is prefixed to each string contained within the braces and the postscript is then appended to each resulting string.
 Brace extensions may be nested, the results of each expanded string are not sorted. Left or right order is preserved.
 
@@ -84,8 +85,8 @@ franky ~> export PATH="$PATH:~/testdir"
 
 ~/testdir will be expanded to $$HOME is /var/home/franky, the directory /var/home/franky/testdir will be added to the content of the PATH variable.
 
-
 #### Shell parameter and variable expansion
+
 The "$" character introduces parameter expansion, command substitution, or arithmetic expansion. The parameter name or symbol to be expanded may be enclosed in braces, which are optional but serve to protect the variable to be expanded from characters immediately following it which could be interpreted as part of the name.
 When braces are used, the matching ending brace is the first "}" not escaped by a backslash or within a quoted string, and not within an embedded arithmetic expansion, command substitution, or parameter expansion.
 
@@ -121,7 +122,9 @@ Special parameters, among others the positional parameters, may not be assigned 
 
 
 ```
+
 #### Command Subsitution
+
 This allows the output of a command to replace the command itself. Command substitution occurs when command is enclosed like this
 
 `$(command)`
@@ -144,6 +147,7 @@ Command substitutions may be nested. To nest when using the backquoted form, esc
 If the substitution appears within double quotes, word splitting and file name expansion are not performed on the results.
 
 #### Arithmetic Expansion
+
 This allows the evaluation of arithmetic expressions and the substitution of the result. The format for arithmetic.`$((EXPRESSION))`
 
 The expression is treated as if it were within double quotes, but a double quote inside the parentheses is not treated specially. All tokens in the expression undergo parameter expansion, command substitution, and quote removal. Arithmetic substitutions may be nested.
@@ -153,6 +157,7 @@ Evaluation of arithmetic expressions is done in fixed-width integers with no che
 IMG
 
 #### Process Substitution
+
 Process substitution is supported on systems that support named pipes (FIFOs) or the /dev/fd method of naming open files. It takes the form of
 
 `<(LIST)`
@@ -166,17 +171,19 @@ The process LIST is run with its input or output connected to a FIFO or some fil
 When available, process substitution is performed simultaneously with parameter and variable expansion, command substitution, and arithmetic expansion.
 
 #### Word splitting
+
 The shell scans the results of parameter expansion, command substitution, and arithmetic expansion that did not occur within double quotes for word splitting.
 
-The shell treats each character of $IFS as a delimiter, and splits the results of the other expansions into words on these characters. If IFS is unset, or its value is exactly "'<space><tab><newline>'", the default, then any sequence of IFS characters serves to delimit words. If IFS has a value other than the default, then sequences of the whitespace characters "space" and "Tab" are ignored at the beginning and end of the word, as long as the whitespace character is in the value of IFS (an IFS whitespace character). Any character in IFS that is not IFS whitespace, along with any adjacent IF whitespace characters, delimits a field. A sequence of IFS whitespace characters is also treated as a delimiter. If the value of IFS is null, no word splitting occurs.
+The shell treats each character of $IFS as a delimiter, and splits the results of the other expansions into words on these characters. If IFS is unset, or its value is exactly "'`<space><tab>``<newline>`'", the default, then any sequence of IFS characters serves to delimit words. If IFS has a value other than the default, then sequences of the whitespace characters "space" and "Tab" are ignored at the beginning and end of the word, as long as the whitespace character is in the value of IFS (an IFS whitespace character). Any character in IFS that is not IFS whitespace, along with any adjacent IF whitespace characters, delimits a field. A sequence of IFS whitespace characters is also treated as a delimiter. If the value of IFS is null, no word splitting occurs.
 
 Explicit null arguments ("""" or "''") are retained. Unquoted implicit null arguments, resulting from the expansion of parameters that have no values, are removed. If a parameter with no value is expanded within double quotes, a null argument results and is retained.
 
 Note	Expansion and word splitting
-    
-If no expansion occurs, no splitting is performed.  
+
+If no expansion occurs, no splitting is performed.
 
 #### File name expansion
+
 After word splitting, unless the -f option has been set (see Section 2.3.2), Bash scans each word for the characters "*", "?", and "[". If one of these characters appears, then the word is regarded as a PATTERN, and replaced with an alphabetically sorted list of file names matching the pattern. If no matching file names are found, and the shell option nullglob is disabled, the word is left unchanged. If the nullglob option is set, and no matches are found, the word is removed. If the shell option nocaseglob is enabled, the match is performed without regard to the case of alphabetic characters.
 
 When a pattern is used for file name generation, the character "." at the start of a file name or immediately following a slash must be matched explicitly, unless the shell option dotglob is set. When matching a file name, the slash character must always be matched explicitly. In other cases, the "." character is not treated specially.
@@ -250,10 +257,42 @@ A builtin command are standard commands that come with linux distributions.
 * ulimit
 * unalias
 
-### Find the location of the executable program.
+### Find the location of the executable program in paths defined in $PATH
 
-### Search for paths defined in $PATH
+PATH is an environmental variable in Linux os that tells the shell which directories to search for executable files in response to commands issued by the user. Most important env var.
+If the command is not found in the BUILTIN command list then it will look at the PATH env variable.
+
+It is a simple matter to add a directory to a user's PATH variable (and thereby add it to the user's default search path). It can be accomplished for the current session by using the following command, in which directory is the full path of the directory to be entered:
+
+`PATH="directory:$PATH"`
+
+For example, to add the directory /usr/sbin, the following would be used:
+
+`PATH="/usr/sbin:$PATH"`
+
+An alternative is to employ the export command, which is used to change aspects of the environment. Thus, the above absolute path could be added with the following two commands in sequence
+
+`PATH=$PATH:/usr/sbin  `
+
+`export PATH`
+
+or its single-line equivalent
+
+`export PATH=$PATH:/usr/sbin`
+
+That the directory has been added can be easily confirmed by again using the echo command with $PATH as its argument.
 
 ### What if the program is not found?
+
 Return an error if the command is not found
 
+
+**The error “Command not found” means that the command isn’t in your search path.**
+
+When you get the error “Command not found,” it means that the computer searched everywhere it knew to look and couldn’t find a program by that name.
+
+You can control where the computer looks for commands, however. So “Command not found” doesn’t necessarily mean that the program isn’t anywhere on the system. It may just mean that you didn’t give the computer enough information to find it. Before you ask your administrator for help, there are a few things you can do:
+
+* Check the name of the command and confirm that you didn’t make a typo on the command line.
+* Make sure that the command is installed on the system.
+* If the command is installed on your system, make sure the computer knows where to look.
