@@ -297,8 +297,9 @@ You can control where the computer looks for commands, however. So “Command no
 * Make sure that the command is installed on the system.
 * If the command is installed on your system, make sure the computer knows where to look.
 
----
+If the shell doesn’t find any built-ins, then it will look for the “ls” executable specified by the PATH env, or environment, variable. The shell will search through this variable when the user enters a command.
 
+![No alt text provided for this image](https://media-exp1.licdn.com/dms/image/C4E12AQHS874OHl5HdA/article-inline_image-shrink_1000_1488/0/1574874751392?e=1649289600&v=beta&t=5wFpzP9mD06TGH1mNJ1k44AdMqm3O7FgNbM9lYuF7dk)
 
 By using the fork function the shell splits into two processes, the parent and the child. While the parent waits, the child executes the command by receiving the path of the command "/bin/ls", the tokens ["ls", "-l"] and the environment "envp". The function execve, executes and transforms into the execution of "/bin/ls" and the child process exits when "/bin/ls" exits.
 
