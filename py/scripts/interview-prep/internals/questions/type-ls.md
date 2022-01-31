@@ -296,3 +296,14 @@ You can control where the computer looks for commands, however. So “Command no
 * Check the name of the command and confirm that you didn’t make a typo on the command line.
 * Make sure that the command is installed on the system.
 * If the command is installed on your system, make sure the computer knows where to look.
+
+---
+
+
+By using the fork function the shell splits into two processes, the parent and the child. While the parent waits, the child executes the command by receiving the path of the command "/bin/ls", the tokens ["ls", "-l"] and the environment "envp". The function execve, executes and transforms into the execution of "/bin/ls" and the child process exits when "/bin/ls" exits.
+
+And this is what it takes for the shell to list files in long form with the command “ls -l” and you get this result
+
+![No alt text provided for this image](https://media-exp1.licdn.com/dms/image/C4E12AQE59dCeW2U81g/article-inline_image-shrink_1000_1488/0/1574874826366?e=1649289600&v=beta&t=DMpbWu_tiKROK4eRgUZeYBmAQISDmKGMd1KWkEi9f1E)
+
+Hope i explained it well for all of you , its pretty amazing what goes on under the hood for simple commands like this
