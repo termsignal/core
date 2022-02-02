@@ -170,9 +170,9 @@ Evaluation of arithmetic expressions is done in fixed-width integers with no che
 | == and !=                                   | equality and inequality                    |
 | &                                           | bitwise AND                                |
 | ^                                           | bitwise exclusive OR                       |
-| |                                           |                                            |
+|                                             |                                            |
 | &&                                          | logical AND                                |
-| ||                                          |                                            |
+|                                             |                                            |
 | expr ? expr : expr                          | conditional evaluation                     |
 | =, *=, /=, %=, +=, -=, <<=, >>=, &=, ^= and | =                                          |
 | ,                                           | separator between expressions              |
@@ -307,7 +307,6 @@ That the directory has been added can be easily confirmed by again using the ech
 
 Return an error if the command is not found
 
-
 **The error “Command not found” means that the command isn’t in your search path.**
 
 When you get the error “Command not found,” it means that the computer searched everywhere it knew to look and couldn’t find a program by that name.
@@ -329,3 +328,9 @@ And this is what it takes for the shell to list files in long form with the comm
 ![No alt text provided for this image](https://media-exp1.licdn.com/dms/image/C4E12AQE59dCeW2U81g/article-inline_image-shrink_1000_1488/0/1574874826366?e=1649289600&v=beta&t=DMpbWu_tiKROK4eRgUZeYBmAQISDmKGMd1KWkEi9f1E)
 
 Hope i explained it well for all of you , its pretty amazing what goes on under the hood for simple commands like this
+
+### Virtual and Physical Memory
+
+The shared libraries are stored in physical memory and virtual memory is mapped to it. Notice how the library code only exists in the Physical Memory once.
+
+![](assets/20220201_104018_memory.png)
