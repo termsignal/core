@@ -154,7 +154,28 @@ The expression is treated as if it were within double quotes, but a double quote
 
 Evaluation of arithmetic expressions is done in fixed-width integers with no check for overflow - although division by zero is trapped and recognized as an error. The operators are roughly the same as in the C programming language. In order of decreasing precedence, the list looks like this:
 
-IMG
+**Table 3-4. Arithmetic operators**
+
+| Operator                                    | Meaning                                    |
+| ------------------------------------------- | ------------------------------------------ |
+| VAR++ and VAR--                             | variable post-increment and post-decrement |
+| ++VAR and --VAR                             | variable pre-increment and pre-decrement   |
+| - and +                                     | unary minus and plus                       |
+| ! and ~                                     | logical and bitwise negation               |
+| **                                          | exponentiation                             |
+| *, / and %                                  | multiplication, division, remainder        |
+| + and -                                     | addition, subtraction                      |
+| << and >>                                   | left and right bitwise shifts              |
+| <=, >=, < and >                             | comparison operators                       |
+| == and !=                                   | equality and inequality                    |
+| &                                           | bitwise AND                                |
+| ^                                           | bitwise exclusive OR                       |
+| |                                           |                                            |
+| &&                                          | logical AND                                |
+| ||                                          |                                            |
+| expr ? expr : expr                          | conditional evaluation                     |
+| =, *=, /=, %=, +=, -=, <<=, >>=, &=, ^= and | =                                          |
+| ,                                           | separator between expressions              |
 
 #### Process Substitution
 
